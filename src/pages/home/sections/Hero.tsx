@@ -47,10 +47,11 @@ export function Hero({ onOpenAudit }: HeroProps) {
   return (
     <section className="relative min-h-[calc(100dvh-64px)] flex items-center border-b border-border/50">
 
-      {/* Glowing orbs — lightweight CSS animation */}
-      <div className="hero-orb hero-orb-1" />
-      <div className="hero-orb hero-orb-2" />
-      <div className="hero-orb hero-orb-3" />
+      {/* Conic beam background */}
+      <div className="hero-beam hero-beam-1" />
+      <div className="hero-beam hero-beam-2" />
+      <div className="hero-beam-glow" />
+      <div className="hero-beam-bottom" />
 
       {/* Subtle blue grid */}
       <div className="absolute inset-0 z-0 bg-grid bg-grid-mask pointer-events-none" />

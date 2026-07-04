@@ -325,43 +325,81 @@ html::-webkit-scrollbar {
   background-position: center;
 }
 
-@keyframes orb-float-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
-  50%       { transform: translate(40px, -30px) scale(1.08); opacity: 0.7; }
+/* ── Conic beam hero background ── */
+@keyframes hero-spin-fwd {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
-@keyframes orb-float-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
-  50%       { transform: translate(-30px, 25px) scale(0.94); opacity: 0.55; }
+@keyframes hero-spin-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
 }
-@keyframes orb-float-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-  50%       { transform: translate(20px, 15px) scale(1.06); opacity: 0.45; }
+@keyframes hero-glow-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.06); }
 }
 
-.hero-orb {
+.hero-beam {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
   pointer-events: none;
-  will-change: transform, opacity;
+  will-change: transform;
 }
-.hero-orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(37,99,235,0.65) 0%, rgba(59,130,246,0.3) 50%, transparent 70%);
-  top: -15%; left: -10%;
-  animation: orb-float-1 10s ease-in-out infinite;
+.hero-beam-1 {
+  width: 900px; height: 900px;
+  top: -25%; left: -25%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent       0deg,
+    rgba(59,130,246,.13) 18deg,
+    transparent       38deg,
+    transparent       178deg,
+    rgba(37,99,235,.09) 198deg,
+    transparent       218deg,
+    transparent       360deg
+  );
+  animation: hero-spin-fwd 40s linear infinite;
 }
-.hero-orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(14,165,233,0.55) 0%, rgba(56,189,248,0.25) 50%, transparent 70%);
-  top: 10%; right: -8%;
-  animation: orb-float-2 13s ease-in-out infinite;
+.hero-beam-2 {
+  width: 820px; height: 820px;
+  top: -12%; right: -20%;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    transparent         0deg,
+    rgba(96,165,250,.10) 22deg,
+    transparent         46deg,
+    transparent         195deg,
+    rgba(59,130,246,.07) 220deg,
+    transparent         244deg,
+    transparent         360deg
+  );
+  animation: hero-spin-rev 55s linear infinite;
 }
-.hero-orb-3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, rgba(139,92,246,0.2) 50%, transparent 70%);
-  bottom: -5%; left: 35%;
-  animation: orb-float-3 16s ease-in-out infinite;
+.hero-beam-glow {
+  position: absolute;
+  width: 640px; height: 420px;
+  top: 8%; left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(59,130,246,.18) 0%,
+    rgba(37,99,235,.07)  42%,
+    transparent          70%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  animation: hero-glow-pulse 9s ease-in-out infinite;
+}
+.hero-beam-bottom {
+  position: absolute;
+  width: 520px; height: 520px;
+  bottom: -18%; left: 22%;
+  background: radial-gradient(circle,
+    rgba(99,102,241,.22) 0%,
+    transparent 65%
+  );
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: .55;
 }
 
 .bg-grid-mask {
