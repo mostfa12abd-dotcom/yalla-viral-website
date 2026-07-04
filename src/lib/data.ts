@@ -14,12 +14,12 @@ export const stats = [
   { icon: Clock,     value: 99.9, suffix: "%",  label: "AI Uptime Guaranteed", decimals: 1 },
 ];
 export const services = [
-  { icon: HeadphonesIcon, title: "AI Call Centers",       desc: "Automate inbound and outbound calls with conversational AI agents.", color: "text-primary",   showLogin: true  },
-  { icon: Share2,         title: "Marketing Automation",  desc: "Intelligent campaigns that nurture leads and convert 24/7.",         color: "text-secondary", showLogin: false },
-  { icon: Layout,         title: "Website Design",        desc: "Stunning, conversion-focused websites that capture your brand.",     color: "text-primary",   showLogin: false },
-  { icon: PhoneCall,      title: "Social Media",          desc: "Grow your audience with strategic content and engagement.",          color: "text-secondary", showLogin: false },
-  { icon: Camera,         title: "Photography & Video",   desc: "Premium visual content that tells your brand's unique story.",      color: "text-primary",   showLogin: false },
-  { icon: Settings,       title: "Business Automation",   desc: "Streamline operations with smart, connected workflows.",             color: "text-secondary", showLogin: false },
+  { icon: HeadphonesIcon, title: "AI Call Centers",       desc: "Automate inbound and outbound calls with conversational AI agents.", color: "text-blue-400",   showLogin: true  },
+  { icon: Share2,         title: "Marketing Automation",  desc: "Intelligent campaigns that nurture leads and convert 24/7.",         color: "text-sky-400",   showLogin: false },
+  { icon: Layout,         title: "Website Design",        desc: "Stunning, conversion-focused websites that capture your brand.",     color: "text-indigo-400", showLogin: false },
+  { icon: PhoneCall,      title: "Social Media",          desc: "Grow your audience with strategic content and engagement.",          color: "text-blue-300",  showLogin: false },
+  { icon: Camera,         title: "Photography & Video",   desc: "Premium visual content that tells your brand's unique story.",      color: "text-sky-300",   showLogin: false },
+  { icon: Settings,       title: "Business Automation",   desc: "Streamline operations with smart, connected workflows.",             color: "text-blue-400",  showLogin: false },
 ];
 
 export const portfolioItems = [
