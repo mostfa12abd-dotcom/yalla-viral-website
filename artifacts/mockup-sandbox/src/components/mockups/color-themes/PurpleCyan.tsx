@@ -1,71 +1,56 @@
+// Conic Beams — slow rotating conic gradient beams, very subtle
 export function PurpleCyan() {
   return (
-    <div style={{ background: "#0A0F1E", minHeight: "100vh", fontFamily: "'Inter', sans-serif", position: "relative", overflow: "hidden" }}>
+    <div style={{ background: "#070C1A", minHeight: "100vh", fontFamily: "'Inter', sans-serif", position: "relative", overflow: "hidden" }}>
       <style>{`
-        @keyframes gridMove2 { from { transform: translateY(0); } to { transform: translateY(60px); } }
-        .grid-bg2 {
-          position: absolute; inset: 0; pointer-events: none;
-          background-image: linear-gradient(rgba(59,130,246,0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59,130,246,0.07) 1px, transparent 1px);
-          background-size: 60px 60px;
-          animation: gridMove2 8s linear infinite;
-        }
-        .btn-blue2 { background: linear-gradient(135deg,#3B82F6,#2563EB); transition: opacity .2s; }
-        .btn-blue2:hover { opacity:.85; }
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spinRev  { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes pulseFade { 0%,100% { opacity:.55; } 50% { opacity:.75; } }
+        @keyframes gridPulse { 0%,100% { opacity:.08; } 50% { opacity:.04; } }
+        .spin1 { animation: spinSlow 40s linear infinite; }
+        .spin2 { animation: spinRev 55s linear infinite; }
+        .pulse { animation: pulseFade 8s ease-in-out infinite; }
+        .gpulse { animation: gridPulse 10s ease-in-out infinite; }
       `}</style>
-      <div className="grid-bg2" />
 
-      {/* Navbar */}
-      <nav style={{ position: "relative", zIndex: 10, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 48px", borderBottom: "1px solid rgba(59,130,246,0.15)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg,#3B82F6,#2563EB)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, color: "#fff", fontSize: 14 }}>Y</div>
-          <span style={{ color: "#fff", fontWeight: 700, fontSize: 18 }}>Yalla <span style={{ color: "#3B82F6" }}>Viral</span></span>
+      {/* Conic beam 1 — from top-left */}
+      <div className="spin1" style={{ position:"absolute", width:900, height:900, top:"-25%", left:"-25%", background:"conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(59,130,246,.12) 20deg, transparent 40deg, transparent 180deg, rgba(37,99,235,.08) 200deg, transparent 220deg, transparent 360deg)", borderRadius:"50%", pointerEvents:"none" }} />
+
+      {/* Conic beam 2 — from right */}
+      <div className="spin2" style={{ position:"absolute", width:800, height:800, top:"-10%", right:"-20%", background:"conic-gradient(from 90deg at 50% 50%, transparent 0deg, rgba(96,165,250,.1) 25deg, transparent 50deg, transparent 200deg, rgba(59,130,246,.07) 225deg, transparent 250deg)", borderRadius:"50%", pointerEvents:"none" }} />
+
+      {/* Soft orb glow center */}
+      <div className="pulse" style={{ position:"absolute", width:600, height:400, top:"10%", left:"50%", transform:"translateX(-50%)", background:"radial-gradient(ellipse at 50% 50%, rgba(59,130,246,.18) 0%, rgba(37,99,235,.08) 40%, transparent 70%)", filter:"blur(60px)", pointerEvents:"none" }} />
+
+      {/* Bottom orb */}
+      <div style={{ position:"absolute", width:500, height:500, bottom:"-20%", left:"20%", background:"radial-gradient(circle, rgba(99,102,241,.25) 0%, transparent 65%)", filter:"blur(90px)", pointerEvents:"none", opacity:.5 }} />
+
+      {/* Grid */}
+      <div className="gpulse" style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(59,130,246,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,.1) 1px, transparent 1px)", backgroundSize:"44px 44px", maskImage:"linear-gradient(to bottom, black 65%, transparent 100%)", WebkitMaskImage:"linear-gradient(to bottom, black 65%, transparent 100%)", pointerEvents:"none" }} />
+
+      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:1, background:"linear-gradient(to right, transparent, rgba(59,130,246,.3), transparent)" }} />
+
+      {/* Content */}
+      <nav style={{ position:"relative", zIndex:10, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"20px 48px", borderBottom:"1px solid rgba(59,130,246,.12)" }}>
+        <span style={{ color:"#fff", fontWeight:700, fontSize:18 }}>Yalla <span style={{ color:"#3B82F6" }}>Viral</span></span>
+        <div style={{ display:"flex", gap:32 }}>
+          {["Services","Try Our AI","Web Demos"].map(l => <span key={l} style={{ color:"#94A3B8", fontSize:14 }}>{l}</span>)}
         </div>
-        <div style={{ display: "flex", gap: 32 }}>
-          {["Services", "Try Our AI", "Web Demos"].map(l => (
-            <span key={l} style={{ color: "#94A3B8", fontSize: 14, cursor: "pointer" }}>{l}</span>
-          ))}
-        </div>
-        <button style={{ border: "1px solid #3B82F6", color: "#3B82F6", background: "transparent", padding: "8px 20px", borderRadius: 8, fontSize: 14, cursor: "pointer" }}>Client Login</button>
+        <button style={{ border:"1px solid rgba(59,130,246,.4)", color:"#3B82F6", background:"transparent", padding:"8px 20px", borderRadius:8, fontSize:14 }}>Client Login</button>
       </nav>
 
-      {/* Hero */}
-      <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "72px 48px 48px" }}>
-        {/* Badge — CYAN accent */}
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(6,182,212,0.12)", border: "1px solid rgba(6,182,212,0.35)", borderRadius: 999, padding: "6px 16px", marginBottom: 32 }}>
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#06B6D4", display: "inline-block" }} />
-          <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 500 }}>New: Multilingual AI Voice Agents</span>
-        </div>
-
-        {/* Headline — blue on first key word, cyan on second */}
-        <h1 style={{ fontSize: 64, fontWeight: 800, lineHeight: 1.1, color: "#fff", margin: "0 0 24px", maxWidth: 800, marginLeft: "auto", marginRight: "auto" }}>
-          Solutions That <span style={{ color: "#3B82F6" }}>Generate Leads</span>,<br />
-          <span style={{ color: "#06B6D4" }}>Answer Calls</span> &amp; Grow Revenue
+      <div style={{ position:"relative", zIndex:10, textAlign:"center", padding:"80px 48px 60px" }}>
+        <span style={{ color:"#3B82F6", fontWeight:600, fontSize:13, letterSpacing:"0.1em", textTransform:"uppercase" }}>Yalla Viral</span>
+        <h1 style={{ fontSize:60, fontWeight:800, lineHeight:1.1, color:"#fff", margin:"16px auto 24px", maxWidth:820 }}>
+          Solutions That Generate Leads,<br />Answer Calls &amp; Grow Revenue
         </h1>
-
-        <p style={{ color: "#94A3B8", fontSize: 18, maxWidth: 600, margin: "0 auto 40px", lineHeight: 1.7 }}>
-          Yalla Viral helps businesses automate customer interactions, strengthen their online presence, and accelerate growth through AI call centers, websites, marketing, and custom automation.
+        <p style={{ color:"#94A3B8", fontSize:18, maxWidth:580, margin:"0 auto 44px", lineHeight:1.7 }}>
+          Yalla Viral helps businesses automate customer interactions and accelerate growth through AI call centers, websites, marketing, and custom automation.
         </p>
-
-        {/* CTA — BLUE (unchanged) */}
-        <button className="btn-blue2" style={{ boxShadow: "0 0 40px rgba(59,130,246,0.25)", color: "#fff", border: "none", padding: "16px 36px", borderRadius: 999, fontSize: 16, fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+        <button style={{ background:"linear-gradient(135deg,#3B82F6,#2563EB)", color:"#fff", border:"none", padding:"15px 36px", borderRadius:999, fontSize:16, fontWeight:600, cursor:"pointer", boxShadow:"0 0 48px rgba(59,130,246,.3)" }}>
           Get Your Free AI Growth Audit →
         </button>
-        <p style={{ color: "#64748B", fontSize: 13, marginTop: 12 }}>No credit card required. 100% Free.</p>
-      </div>
-
-      {/* Stat cards — blue / cyan / violet */}
-      <div style={{ position: "relative", zIndex: 10, display: "flex", gap: 20, justifyContent: "center", padding: "0 48px 64px" }}>
-        {[
-          { num: "200%", label: "Average ROI", accent: "#3B82F6" },
-          { num: "24/7", label: "AI Coverage", accent: "#06B6D4" },
-          { num: "3×", label: "Faster Growth", accent: "#A855F7" },
-        ].map(({ num, label, accent }) => (
-          <div key={label} style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${accent}33`, borderRadius: 16, padding: "28px 40px", textAlign: "center", flex: 1, maxWidth: 220 }}>
-            <div style={{ fontSize: 36, fontWeight: 800, color: accent, marginBottom: 6 }}>{num}</div>
-            <div style={{ color: "#94A3B8", fontSize: 14 }}>{label}</div>
-          </div>
-        ))}
+        <p style={{ color:"#4B5563", fontSize:13, marginTop:12 }}>No credit card required. 100% Free.</p>
       </div>
     </div>
   );
