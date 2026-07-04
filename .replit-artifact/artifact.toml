@@ -12,14 +12,14 @@ version = "1.0.0"
 [[services]]
 name = "web"
 paths = [ "/" ]
-localPort = 23010
+localPort = 5173
 
 [services.development]
 run = "pnpm --filter @workspace/yalla-viral run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/yalla-viral", "run", "build" ]
-publicDir = "artifacts/yalla-viral/dist/public"
+publicDir = "dist"
 serve = "static"
 
 [[services.production.rewrites]]
@@ -27,5 +27,5 @@ from = "/*"
 to = "/index.html"
 
 [services.env]
-PORT = "23010"
+PORT = "5173"
 BASE_PATH = "/"
