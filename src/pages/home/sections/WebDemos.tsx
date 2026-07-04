@@ -122,7 +122,7 @@ function DemoCard({
             title={item.title}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin"
-            style={{ width: 1280, height: 800, border: 0, pointerEvents: active ? "auto" : "none" }}
+            style={{ width: 1280, height: 800, border: 0, pointerEvents: "none" }}
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
