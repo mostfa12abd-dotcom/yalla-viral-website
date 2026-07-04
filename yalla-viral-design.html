@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yalla Viral — AI Digital Marketing & Web Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Peace Sans';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 400;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/peace-sans@latest/latin-400-normal.woff2) format('woff2');
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --background: #000000;
+      --foreground: #ffffff;
+      --border: #1f1f1f;
+      --card: #0a0a0a;
+      --card-foreground: #ffffff;
+      --muted: #0f0f0f;
+      --muted-foreground: #999999;
+      --primary: #ffffff;
+      --primary-foreground: #000000;
+      --secondary: #cccccc;
+      --radius: 8px;
+      --font-sans: 'Inter', sans-serif;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-brand: 'Peace Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--background);
+      color: var(--foreground);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    html::-webkit-scrollbar { display: none; }
+    body::-webkit-scrollbar { display: none; }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 4vw, 4rem);
+    }
+
+    .section-py {
+      padding-top: clamp(2.5rem, 12vh, 7rem);
+      padding-bottom: clamp(2.5rem, 12vh, 7rem);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      inset-inline: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(24px);
+      transition: transform 0.15s;
+    }
+    .navbar-inner {
+      height: 64px;
+      display: flex;
+      align-items: center;
+    }
+    .navbar-logo {
+      font-family: var(--font-brand);
+      font-size: 1.25rem;
+      color: #fff;
+    }
+    .navbar-links {
+      display: none;
+      gap: 2rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      margin-left: auto;
+    }
+    @media (min-width: 768px) {
+      .navbar-links {
+        display: flex;
+      }
+    }
+    .navbar-links a:hover {
+      color: #fff;
+      transition: color 0.2s;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: calc(100dvh - 64px);
+      display: flex;
+      align-items: center;
+      background: rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 56rem;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: var(--muted-foreground);
+      line-height: 1.7;
+    }
+    .hero-cta-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 2rem;
+      border-radius: 9999px;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 30px -5px #fff;
+      transition: box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 50px -5px #fff;
+    }
+    .cta-note {
+      font-size: 0.75rem;
+      color: rgba(153,153,153,0.6);
+      text-align: center;
+    }
+
+    /* Sections common */
+    .section-title {
+      text-align: center;
+      max-width: 36rem;
+      margin: 0 auto 3.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .section-title h2 {
+      font-size: clamp(1.875rem, 5vw, 3rem);
+      font-weight: 700;
+    }
+    .section-title p {
+      color: var(--muted-foreground);
+      font-size: clamp(0.875rem, 1.4vw, 1.125rem);
+    }
+
+    /* Services */
+    #services {
+      min-height: 100dvh;
+    }
+    .services-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1280px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .service-card {
+      background: rgba(10,10,10,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 0 30px -8px #fff;
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s;
+      margin-top: 2px;
+    }
+    .service-card:hover .service-icon {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.1);
+    }
+    .service-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+    .service-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+    .service-desc {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+      margin-top: 0.25rem;
+    }
+
+    /* Stats */
+    .stats-section {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.015);
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(255,255,255,0.05), transparent, rgba(204,204,204,0.05));
+      pointer-events: none;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stat-icon { width: 20px; height: 20px; color: var(--secondary); margin-bottom: 0.25rem; }
+    .stat-value {
+      font-size: clamp(2.25rem, 5vw, 3rem);
+      font-weight: 700;
+      background: linear-gradient(to bottom right, #fff, rgba(255,255,255,0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    /* AI Call Center */
+    #try-ai {
+      min-height: 100dvh;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.02);
+      position: relative;
+      overflow: hidden;
+    }
+    .ai-grid {
+      display: grid;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (min-width: 1024px) { .ai-grid { grid-template-columns: 1fr 1fr; } }
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .ai-title {
+      font-size: clamp(1.875rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .ai-gradient {
+      background: linear-gradient(to right, #fff, #ccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ai-desc {
+      font-size: 1rem;
+      color: var(--muted-foreground);
+      line-height: 1.7;
+    }
+    .ai-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding-top: 1.5rem;
+    }
+    .ai-step {
+      text-align: center;
+    }
+    .ai-step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 auto 0.5rem;
+    }
+    .ai-step-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+    }
+    .ai-step-desc {
+      font-size: 0.6875rem;
+      color: var(--muted-foreground);
+      line-height: 1.4;
+      margin-top: 0.25rem;
+    }
+    .ai-dash-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+    .ai-dash-label {
+      text-align: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+    .ai-dash-placeholder {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      margin: 1rem;
+    }
+    .ai-dash-placeholder svg {
+      width: 48px;
+      height: 48px;
+      opacity: 0.3;
+    }
+
+    /* Portfolio */
+    #portfolio {
+      min-height: 100dvh;
+    }
+    .portfolio-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .portfolio-grid { grid-template-columns: repeat(3, 1fr); } }
+    .portfolio-card {
+      background: rgba(10,10,10,0.3);
+      border: 1px solid;
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .portfolio-card:hover {
+      box-shadow: 0 0 40px -10px #fff;
+    }
+    .portfolio-bar {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(to right, var(--bar-from), var(--bar-to));
+    }
+    .portfolio-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .portfolio-cat {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+    }
+    .portfolio-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.3;
+    }
+    .portfolio-desc {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .portfolio-stat {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #fff, #ccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: auto;
+    }
+
+    /* Web Demos */
+    #web-demos {
+      min-height: 100dvh;
+    }
+    .demo-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .demo-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .demo-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
+    }
+    .demo-thumb {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.06));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-thumb svg {
+      width: 32px;
+      height: 32px;
+      opacity: 0.3;
+    }
+    .demo-info {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .demo-info h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+    .demo-info p {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+      margin-top: 0.25rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: var(--background);
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 75%;
+      height: 128px;
+      background: rgba(255,255,255,0.2);
+      filter: blur(120px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .footer-grid {
+      display: grid;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-brand);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .footer-desc {
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      max-width: 20rem;
+      margin-top: 1rem;
+    }
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .footer-links a {
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .footer-social a svg {
+      width: 16px;
+      height: 16px;
+    }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+    @media (min-width: 768px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a { transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      height: 3px;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .scroll-progress-bar {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .scroll-progress-fill {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      border-radius: 9999px;
+    }
+    .scroll-progress-glow {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      border-radius: 9999px;
+      filter: blur(6px);
+      opacity: 0.8;
+    }
+    .scroll-progress-tail {
+      position: absolute;
+      top: -4px;
+      bottom: -4px;
+      right: -60px;
+      width: 60px;
+      background: #fff;
+      filter: blur(12px);
+      opacity: 0.6;
+    }
+    .scroll-progress-tail2 {
+      position: absolute;
+      top: -8px;
+      bottom: -8px;
+      right: -40px;
+      width: 40px;
+      background: #fff;
+      filter: blur(24px);
+      opacity: 0.4;
+    }
+    .scroll-progress-tail3 {
+      position: absolute;
+      top: -16px;
+      bottom: -16px;
+      right: -30px;
+      width: 30px;
+      background: #fff;
+      filter: blur(40px);
+      opacity: 0.25;
+    }
+
+    /* Grain */
+    .grain-layer {
+      position: absolute;
+      inset: -150%;
+      width: 400%;
+      height: 400%;
+      pointer-events: none;
+      opacity: 0.038;
+      animation: grain 0.65s steps(1) infinite;
+      will-change: transform;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+    @keyframes grain {
+      0%   { transform: translate(0, 0); }
+      10%  { transform: translate(-3%, -4%); }
+      20%  { transform: translate(4%, 2%); }
+      30%  { transform: translate(-2%, 5%); }
+      40%  { transform: translate(5%, -3%); }
+      50%  { transform: translate(-4%, 1%); }
+      60%  { transform: translate(2%, -5%); }
+      70%  { transform: translate(-5%, 3%); }
+      80%  { transform: translate(3%, 4%); }
+      90%  { transform: translate(-1%, -2%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @media (max-width: 767px) {
+      *, *::before, *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress">
+    <div class="scroll-progress-bar">
+      <div class="scroll-progress-fill"></div>
+      <div class="scroll-progress-glow"></div>
+      <div class="scroll-progress-tail"></div>
+      <div class="scroll-progress-tail2"></div>
+      <div class="scroll-progress-tail3"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="#" class="navbar-logo">Yalla Viral</a>
+        <div class="navbar-links">
+          <a href="#services">Services</a>
+          <a href="#try-ai">Try Our AI</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#web-demos">Web Demos</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="grain-layer"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">Solutions That Generate Leads, Answer Calls & Grow Revenue</h1>
+        <p class="hero-sub">Yalla Viral helps businesses automate customer interactions, strengthen their online presence, and accelerate growth through AI call centers, websites, marketing, and custom automation.</p>
+        <div class="hero-cta-wrap">
+          <div style="display:flex;flex-direction:column;gap:0.25rem;">
+            <button class="btn-primary" onclick="alert('Book a demo!')">Get Your Free AI Growth Audit</button>
+            <p class="cta-note">No credit card required. 100% Free.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section-py">
+    <div class="container">
+      <div class="section-title">
+        <h2>What We Do</h2>
+        <p>Growth solutions powered by AI.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="service-title">AI Call Centers</div>
+            <p class="service-desc">Automate inbound and outbound calls with conversational AI agents.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="color:#ccc">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </div>
+          <div>
+            <div class="service-title">Marketing Automation</div>
+            <p class="service-desc">Intelligent campaigns that nurture leads and convert 24/7.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div>
+            <div class="service-title">Website Design</div>
+            <p class="service-desc">Stunning, conversion-focused websites that capture your brand.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="color:#ccc">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="service-title">Social Media</div>
+            <p class="service-desc">Grow your audience with strategic content and engagement.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <div>
+            <div class="service-title">Photography & Video</div>
+            <p class="service-desc">Premium visual content that tells your brand's unique story.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="color:#ccc">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <div>
+            <div class="service-title">Business Automation</div>
+            <p class="service-desc">Streamline operations with smart, connected workflows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="stat-value">500+</span>
+          <span class="stat-label">Clients Served</span>
+        </div>
+        <div class="stat-item">
+          <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <span class="stat-value">148%</span>
+          <span class="stat-label">Avg Revenue Growth</span>
+        </div>
+        <div class="stat-item">
+          <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="stat-value">50K+</span>
+          <span class="stat-label">AI Calls Monthly</span>
+        </div>
+        <div class="stat-item">
+          <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="stat-value">99.9%</span>
+          <span class="stat-label">AI Uptime Guaranteed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Call Center -->
+  <section id="try-ai" class="section-py">
+    <div class="container">
+      <div class="ai-grid">
+        <div>
+          <div class="ai-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            AI Call Center
+          </div>
+          <h2 class="ai-title" style="margin-top:1.5rem;">
+            AI Call Center — <span class="ai-gradient">Powered by Your Data</span>
+          </h2>
+          <p class="ai-desc" style="margin-top:1rem;">
+            Deploy a custom AI voice agent trained on your business data. It handles calls 24/7, books appointments, follows up with leads, and never calls in sick — all from a dashboard you control.
+          </p>
+          <div style="margin-top:1.5rem;">
+            <button class="btn-primary" onclick="alert('Calling AI assistant...')">Call Us Now — It's Free</button>
+          </div>
+          <div class="ai-steps">
+            <div class="ai-step">
+              <div class="ai-step-num">01</div>
+              <div class="ai-step-title">Speak to AI</div>
+              <div class="ai-step-desc">Call our assistant. Book an appointment or ask any question.</div>
+            </div>
+            <div class="ai-step">
+              <div class="ai-step-num">02</div>
+              <div class="ai-step-title">Get a demo</div>
+              <div class="ai-step-desc">Experience our AI voice agent in real time — it's the best way to see it.</div>
+            </div>
+            <div class="ai-step">
+              <div class="ai-step-num">03</div>
+              <div class="ai-step-title">Walk away booked</div>
+              <div class="ai-step-desc">You'll have a confirmed consultation and firsthand proof of what AI can do.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="ai-dash-label">Dashboard Preview</div>
+          <div class="ai-dash-card">
+            <div class="ai-dash-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="section-py">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Work</h2>
+        <p>Real results for real businesses — across industries and continents.</p>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-card" style="--bar-from:rgba(255,255,255,0.3);--bar-to:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3);">
+          <div class="portfolio-bar"></div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">AI Call Center</span>
+            <h3 class="portfolio-title">Auto Dealership — 3× More Booked Test Drives</h3>
+            <p class="portfolio-desc">Deployed an outbound AI agent that followed up with 2,400 leads monthly, converting 18% into scheduled appointments.</p>
+            <div class="portfolio-stat">+312% ROI</div>
+          </div>
+        </div>
+        <div class="portfolio-card" style="--bar-from:rgba(204,204,204,0.3);--bar-to:rgba(204,204,204,0.05);border-color:rgba(204,204,204,0.3);">
+          <div class="portfolio-bar"></div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Marketing Automation</span>
+            <h3 class="portfolio-title">E-Commerce Brand — $1.2M in Automated Revenue</h3>
+            <p class="portfolio-desc">Built a full email + SMS nurture sequence that recovered abandoned carts and upsold repeat customers on autopilot.</p>
+            <div class="portfolio-stat">+148% Revenue</div>
+          </div>
+        </div>
+        <div class="portfolio-card" style="--bar-from:rgba(255,255,255,0.3);--bar-to:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3);">
+          <div class="portfolio-bar"></div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Website Design</span>
+            <h3 class="portfolio-title">Med-Spa Chain — Bookings Up 240%</h3>
+            <p class="portfolio-desc">Redesigned their web presence with conversion-first UX, integrated online booking, and a modern brand identity.</p>
+            <div class="portfolio-stat">+240% Bookings</div>
+          </div>
+        </div>
+        <div class="portfolio-card" style="--bar-from:rgba(204,204,204,0.3);--bar-to:rgba(204,204,204,0.05);border-color:rgba(204,204,204,0.3);">
+          <div class="portfolio-bar"></div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Social Media</span>
+            <h3 class="portfolio-title">Real Estate Agency — 80K Organic Reach in 90 Days</h3>
+            <p class="portfolio-desc">Created a content strategy and managed posting, growing their Instagram from 900 to 22K followers in three months.</p>
+            <div class="portfolio-stat">22K Followers</div>
+          </div>
+        </div>
+        <div class="portfolio-card" style="--bar-from:rgba(255,255,255,0.3);--bar-to:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3);">
+          <div class="portfolio-bar"></div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Photography & Video</span>
+            <h3 class="portfolio-title">Restaurant Group — Campaign That Went Viral</h3>
+            <p class="portfolio-desc">Produced a cinematic brand film and product shoot that earned 1.4M views organically across social platforms.</p>
+            <div class="portfolio-stat">1.4M Views</div>
+          </div>
+        </div>
+        <div class="portfolio-card" style="--bar-from:rgba(204,204,204,0.3);--bar-to:rgba(204,204,204,0.05);border-color:rgba(204,204,204,0.3);">
+          <div class="portfolio-bar"></div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Business Automation</span>
+            <h3 class="portfolio-title">Logistics Firm — 60% Fewer Manual Tasks</h3>
+            <p class="portfolio-desc">Connected CRM, billing, and dispatch systems into a single automated workflow, eliminating repetitive human input.</p>
+            <div class="portfolio-stat">60% Time Saved</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3.5rem;">
+        <button class="btn-primary" onclick="alert('Book a demo!')">Get Your Free AI Growth Audit</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Web Demos -->
+  <section id="web-demos" class="section-py">
+    <div class="container">
+      <div class="section-title">
+        <h2>Live Web Demos</h2>
+        <p>Preview interactive demos of our AI-powered solutions.</p>
+      </div>
+      <div class="demo-cards">
+        <div class="demo-card">
+          <div class="demo-thumb">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div class="demo-info">
+            <h3>Restaurant Booking Demo</h3>
+            <p>Live AI-powered reservation system with conversational booking.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-thumb">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="demo-info">
+            <h3>Demo Support</h3>
+            <p>Handling order inquiries, refunds, and upselling.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-thumb">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="demo-info">
+            <h3>Real Estate Lead Gen Demo</h3>
+            <p>Outbound AI calling for property showing scheduling.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-thumb">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="demo-info">
+            <h3>Healthcare Intake Demo</h3>
+            <p>Automated patient intake and appointment scheduling via voice AI.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-thumb">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="demo-info">
+            <h3>Auto Dealership Demo</h3>
+            <p>Follow-up AI agent booking test drives 24/7.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Yalla Viral</div>
+          <p class="footer-desc">Powering businesses with AI. Transform your operations and scale effortlessly.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <div class="footer-links">
+            <a href="#services">Services</a>
+            <a href="#try-ai">Try Our AI</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#web-demos">Web Demos</a>
+            <a href="#">Client Login</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Connect</h4>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Yalla Viral. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll progress
+    window.addEventListener('scroll', function() {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById('scrollProgress').style.width = progress + '%';
+    });
+
+    // Hide/show navbar on scroll
+    var lastY = 0;
+    window.addEventListener('scroll', function() {
+      var curY = window.scrollY;
+      var navbar = document.getElementById('navbar');
+      if (curY > lastY && curY > 60) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
+      }
+      lastY = curY;
+    });
+  </script>
+
+</body>
+</html>
