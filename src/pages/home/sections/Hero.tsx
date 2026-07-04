@@ -45,7 +45,7 @@ export function Hero({ onOpenAudit }: HeroProps) {
   );
 
   return (
-    <section className="relative min-h-[calc(100dvh-64px)] flex items-center overflow-hidden border-b border-border/50">
+    <section className="relative min-h-[calc(100dvh-64px)] flex items-center border-b border-border/50">
 
       {/* Glowing orbs — lightweight CSS animation */}
       <div className="hero-orb hero-orb-1" />
