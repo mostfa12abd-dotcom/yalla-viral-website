@@ -241,13 +241,12 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                             <label className="text-sm font-medium text-white/80 flex items-center gap-2">
                               <CalendarDays className="w-4 h-4 text-primary" /> Select Date
                             </label>
-                            {/* Calendar: full-width, short cells */}
                             <Calendar
                               mode="single"
                               selected={selectedDate}
                               onSelect={handleDateSelect}
                               disabled={(date) => isBefore(date, today)}
-                              className="bg-white/5 rounded-xl border border-white/10 p-2 w-full [--cell-size:1.55rem]"
+                              className="bg-white/5 rounded-xl border border-white/10 p-2 w-full"
                             />
                           </div>
                         )}
