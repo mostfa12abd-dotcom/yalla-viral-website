@@ -149,7 +149,7 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <div
-              className="relative w-full max-w-xl rounded-2xl border border-white/10 p-6 shadow-2xl"
+              className="relative w-full max-w-xl rounded-2xl border border-white/10 shadow-2xl flex flex-col max-h-[88dvh]"
               style={{
                 background: "rgba(14,12,22,0.82)",
                 backdropFilter: "blur(24px)",
@@ -163,6 +163,7 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                 <X className="w-3.5 h-3.5" />
               </button>
 
+              <div className="overflow-y-auto flex-1 p-6">
               {submitted ? (
                 <div className="text-center py-6 space-y-3">
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gray-500/20 border border-gray-500/30 mx-auto">
@@ -407,6 +408,7 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                   </form>
                 </>
               )}
+              </div>{/* end scrollable */}
             </div>
           </MotionDiv>
         </>

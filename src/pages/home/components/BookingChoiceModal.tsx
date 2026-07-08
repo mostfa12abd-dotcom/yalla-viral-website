@@ -55,27 +55,29 @@ export function BookingChoiceModal({ open, onClose, onBookOnline, onCallUs }: Bo
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={onBookOnline}
-                  className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-white/10 bg-white/[0.03] hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                  className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-primary/30 bg-primary/8 hover:border-primary/60 hover:bg-primary/14 transition-all duration-300"
+                  style={{ background: "rgba(59,130,246,0.08)" }}
                 >
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Calendar className="w-6 h-6 text-primary" />
                   </div>
                   <div className="text-center">
-                    <p className="font-semibold text-white/90">Book Online</p>
-                    <p className="text-xs text-muted-foreground mt-1">Fill out a quick form</p>
+                    <p className="font-semibold text-white">Book Online</p>
+                    <p className="text-xs text-blue-300/70 mt-1">Fill out a quick form</p>
                   </div>
                 </button>
 
                 <button
                   onClick={onCallUs}
-                  className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-white/10 bg-white/[0.03] hover:border-secondary/50 hover:bg-secondary/5 transition-all duration-300"
+                  className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-sky-400/30 hover:border-sky-400/60 transition-all duration-300"
+                  style={{ background: "rgba(14,165,233,0.08)" }}
                 >
-                  <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Phone className="w-6 h-6 text-secondary" />
+                  <div className="w-14 h-14 rounded-full border border-sky-400/30 flex items-center justify-center group-hover:scale-110 transition-transform" style={{ background: "rgba(14,165,233,0.15)" }}>
+                    <Phone className="w-6 h-6 text-sky-400" />
                   </div>
                   <div className="text-center">
-                    <p className="font-semibold text-white/90">Call Us</p>
-                    <p className="text-xs text-muted-foreground mt-1">Speak with our team</p>
+                    <p className="font-semibold text-white">Call Us</p>
+                    <p className="text-xs text-sky-300/70 mt-1">Speak with our team</p>
                   </div>
                 </button>
               </div>
