@@ -252,28 +252,28 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                         )}
 
                         {selectedDate && (
-                          <div className="space-y-2">
-                            <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-primary" /> Select Time
+                          <div className="space-y-1.5">
+                            <label className="text-xs font-medium text-white/70 flex items-center gap-1.5">
+                              <Clock className="w-3.5 h-3.5 text-primary" /> Select Time
                             </label>
                             {loadingSlots && (
-                              <div className="flex items-center gap-2 text-muted-foreground text-sm py-2">
-                                <Loader2 className="w-4 h-4 animate-spin" /> Loading available times…
+                              <div className="flex items-center gap-2 text-muted-foreground text-xs py-1">
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" /> Loading times…
                               </div>
                             )}
                             {blockedMsg && (
-                              <div className="flex items-start gap-2 p-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
-                                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                              <div className="flex items-start gap-1.5 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+                                <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                                 <span>{blockedMsg}</span>
                               </div>
                             )}
                             {!loadingSlots && (
                               <>
-                                <div className="grid grid-cols-3 gap-1.5">
+                                <div className="grid grid-cols-5 gap-1">
                                   {timeSlots.map((slot) => (
                                     <button key={slot.value} type="button" disabled={slot.booked}
                                       onClick={() => handleTimeClick(slot)}
-                                      className={`relative rounded-xl border px-3 py-2 text-sm font-medium transition-all ${
+                                      className={`relative rounded-lg border px-1 py-1.5 text-xs font-medium transition-all text-center ${
                                         slot.booked
                                           ? "bg-red-500/10 border-red-500/20 text-red-400/60 cursor-not-allowed line-through"
                                           : selectedTime?.value === slot.value
@@ -281,14 +281,14 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                                           : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
                                       }`}
                                     >
-                                      {slot.booked && <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500" />}
+                                      {slot.booked && <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-red-500" />}
                                       {slot.label}
                                     </button>
                                   ))}
                                 </div>
-                                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-primary/40" /> Available</span>
-                                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-red-500/40" /> Booked</span>
+                                <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+                                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-primary/40" /> Available</span>
+                                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500/40" /> Booked</span>
                                 </div>
                               </>
                             )}
