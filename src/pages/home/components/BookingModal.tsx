@@ -149,9 +149,9 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <div
-              className="relative w-full max-w-xl rounded-2xl border border-white/10 shadow-2xl flex flex-col max-h-[88dvh]"
+              className="relative w-full max-w-lg rounded-2xl border border-white/10 shadow-2xl p-4"
               style={{
-                background: "rgba(14,12,22,0.82)",
+                background: "rgba(14,12,22,0.88)",
                 backdropFilter: "blur(24px)",
                 boxShadow: "0 0 80px -20px hsl(var(--primary) / 0.35), 0 0 0 1px rgba(255,255,255,0.06) inset",
               }}
@@ -163,244 +163,184 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                 <X className="w-3.5 h-3.5" />
               </button>
 
-              <div className="overflow-y-auto flex-1 p-6">
+              <div>
               {submitted ? (
-                <div className="text-center py-6 space-y-3">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gray-500/20 border border-gray-500/30 mx-auto">
-                    <svg className="w-7 h-7 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="text-center py-4 space-y-2">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 border border-primary/30 mx-auto">
+                    <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold font-heading text-white">Booking Confirmed!</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Your AI Growth Audit call is scheduled for{" "}
-                    <span className="text-white font-medium">
-                      {selectedDate && format(selectedDate, "EEEE, MMMM d, yyyy")}
-                    </span>{" "}
-                    at{" "}
+                  <h3 className="text-lg font-bold font-heading text-white">Booking Confirmed!</h3>
+                  <p className="text-muted-foreground text-xs">
+                    Scheduled for{" "}
+                    <span className="text-white font-medium">{selectedDate && format(selectedDate, "EEE, MMM d, yyyy")}</span>
+                    {" "}at{" "}
                     <span className="text-white font-medium">{selectedTime?.label}</span>
                   </p>
                   <p className="text-xs text-muted-foreground">A calendar invite has been sent to {contact}.</p>
-                  <Button
-                    onClick={() => { onClose(); reset(); }}
-                    className="mt-2 bg-primary hover:bg-primary/90 text-white rounded-xl h-10 px-5"
-                  >
+                  <Button onClick={() => { onClose(); reset(); }} className="mt-1 bg-primary hover:bg-primary/90 text-white rounded-xl h-9 px-5 text-sm">
                     Done
                   </Button>
                 </div>
               ) : (
                 <>
-                  <div className="mb-4 space-y-1.5">
-                    <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium">
-                      <Zap className="w-3 h-3" /> 100% Free · No Credit Card
+                  {/* Header */}
+                  <div className="mb-3 space-y-1 pr-6">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium">
+                      <Zap className="w-2.5 h-2.5" /> 100% Free · No Credit Card
                     </div>
-                    <h2 className="text-xl font-bold font-heading text-white">Get Your Free AI Growth Audit</h2>
-                    <p className="text-muted-foreground text-xs">Book a time that works for you. We'll analyze your business and identify AI automation opportunities.</p>
+                    <h2 className="text-base font-bold font-heading text-white">Get Your Free AI Growth Audit</h2>
+                    <p className="text-muted-foreground text-[11px] leading-relaxed">Book a time that works for you.</p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-3">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className={`flex items-center gap-1 ${step === "details" ? "text-primary font-semibold" : ""}`}>
-                        1. Your Info
-                      </span>
-                      <span className="text-white/20">→</span>
-                      <span className={`flex items-center gap-1 ${step === "calendar" ? "text-primary font-semibold" : ""}`}>
-                        2. Pick Date & Time
-                      </span>
-                      <span className="text-white/20">→</span>
-                      <span className={`flex items-center gap-1 ${step === "confirm" ? "text-primary font-semibold" : ""}`}>
-                        3. Confirm
-                      </span>
-                    </div>
+                  {/* Step indicator */}
+                  <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground mb-3">
+                    {(["details","calendar","confirm"] as const).map((s, i) => (
+                      <>
+                        <span key={s} className={step === s ? "text-primary font-semibold" : ""}>
+                          {i + 1}. {s === "details" ? "Your Info" : s === "calendar" ? "Date & Time" : "Confirm"}
+                        </span>
+                        {i < 2 && <span className="text-white/20">→</span>}
+                      </>
+                    ))}
+                  </div>
 
+                  <form onSubmit={handleSubmit} className="space-y-2.5">
+
+                    {/* Step 1: Details */}
                     {step === "details" && (
                       <>
-                        <div className="space-y-1.5">
-                          <label className="text-sm font-medium text-white/80">Full Name</label>
-                          <input
-                            required
-                            type="text"
-                            placeholder="Your name"
-                            value={name}
+                        <div className="space-y-1">
+                          <label className="text-xs font-medium text-white/70">Full Name</label>
+                          <input required type="text" placeholder="Your name" value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
+                            className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
                           />
                         </div>
-                        <div className="space-y-1.5">
-                          <label className="text-sm font-medium text-white/80">Email Address</label>
-                          <input
-                            required
-                            type="email"
-                            placeholder="you@company.com"
-                            value={contact}
+                        <div className="space-y-1">
+                          <label className="text-xs font-medium text-white/70">Email Address</label>
+                          <input required type="email" placeholder="you@company.com" value={contact}
                             onChange={(e) => setContact(e.target.value)}
-                            className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
+                            className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
                           />
                         </div>
-                        <Button
-                          type="button"
-                          disabled={!name || !contact}
-                          onClick={() => setStep("calendar")}
-                          className="w-full bg-primary hover:bg-primary/90 text-white rounded-xl h-11 text-base font-semibold transition-all disabled:opacity-60"
-                        >
+                        <Button type="button" disabled={!name || !contact} onClick={() => setStep("calendar")}
+                          className="w-full bg-primary hover:bg-primary/90 text-white rounded-xl h-9 text-sm font-semibold transition-all disabled:opacity-60">
                           Continue → Pick a Date
                         </Button>
                       </>
                     )}
 
+                    {/* Step 2: Calendar — side by side layout */}
                     {step === "calendar" && (
                       <>
                         {!slotsLoaded ? (
-                          <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm py-12">
+                          <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm py-8">
                             <Loader2 className="w-4 h-4 animate-spin" /> Loading availability…
                           </div>
                         ) : (
-                          <div className="space-y-2">
-                            <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                              <CalendarDays className="w-4 h-4 text-primary" />
-                              Select Date
-                            </label>
-                            <div className="flex justify-center">
+                          <div className="flex gap-3">
+                            {/* Calendar left */}
+                            <div className="shrink-0">
+                              <p className="text-[11px] font-medium text-white/60 flex items-center gap-1 mb-1.5">
+                                <CalendarDays className="w-3 h-3 text-primary" /> Select Date
+                              </p>
                               <Calendar
                                 mode="single"
                                 selected={selectedDate}
                                 onSelect={handleDateSelect}
                                 disabled={(date) => isBefore(date, today)}
-                                className="bg-white/5 rounded-xl border border-white/10 p-2 w-full max-w-sm [--cell-size:1.75rem]"
+                                className="bg-white/5 rounded-xl border border-white/10 p-1.5 [--cell-size:1.6rem]"
                               />
+                            </div>
+
+                            {/* Time slots right */}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[11px] font-medium text-white/60 flex items-center gap-1 mb-1.5">
+                                <Clock className="w-3 h-3 text-primary" /> Select Time
+                              </p>
+                              {!selectedDate ? (
+                                <div className="h-full flex items-center justify-center text-[11px] text-muted-foreground text-center leading-relaxed pt-4">
+                                  Pick a date first
+                                </div>
+                              ) : loadingSlots ? (
+                                <div className="flex items-center gap-1.5 text-muted-foreground text-xs pt-4">
+                                  <Loader2 className="w-3 h-3 animate-spin" /> Loading…
+                                </div>
+                              ) : (
+                                <>
+                                  {blockedMsg && (
+                                    <div className="flex items-start gap-1.5 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] mb-1.5">
+                                      <AlertCircle className="w-3 h-3 shrink-0 mt-0.5" />
+                                      <span>{blockedMsg}</span>
+                                    </div>
+                                  )}
+                                  <div className="grid grid-cols-2 gap-1">
+                                    {timeSlots.map((slot) => (
+                                      <button key={slot.value} type="button" disabled={slot.booked}
+                                        onClick={() => handleTimeClick(slot)}
+                                        className={`relative rounded-lg border px-2 py-1.5 text-xs font-medium transition-all ${
+                                          slot.booked
+                                            ? "bg-red-500/10 border-red-500/20 text-red-400/60 cursor-not-allowed line-through"
+                                            : selectedTime?.value === slot.value
+                                            ? "bg-primary/20 border-primary/60 text-primary"
+                                            : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
+                                        }`}
+                                      >
+                                        {slot.booked && <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-red-500" />}
+                                        {slot.label}
+                                      </button>
+                                    ))}
+                                  </div>
+                                  <div className="flex items-center gap-3 text-[10px] text-muted-foreground mt-1.5">
+                                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-primary/40" /> Available</span>
+                                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500/40" /> Booked</span>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                         )}
 
-                        {selectedDate && (
-                          <div className="space-y-2">
-                            <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-primary" />
-                              Select Time
-                            </label>
-
-                            {loadingSlots && (
-                              <div className="flex items-center gap-2 text-muted-foreground text-sm py-2">
-                                <Loader2 className="w-4 h-4 animate-spin" /> Loading available times…
-                              </div>
-                            )}
-
-                            {blockedMsg && (
-                              <div className="flex items-start gap-2 p-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
-                                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                                <span>{blockedMsg}</span>
-                              </div>
-                            )}
-
-                            {!loadingSlots && (
-                              <>
-                                <div className="grid grid-cols-3 gap-1.5">
-                                  {timeSlots.map((slot) => (
-                                    <button
-                                      key={slot.value}
-                                      type="button"
-                                      disabled={slot.booked}
-                                      onClick={() => handleTimeClick(slot)}
-                                      className={`relative rounded-xl border px-3 py-2 text-sm font-medium transition-all ${
-                                        slot.booked
-                                          ? "bg-red-500/10 border-red-500/20 text-red-400/60 cursor-not-allowed line-through"
-                                          : selectedTime?.value === slot.value
-                                          ? "bg-primary/20 border-primary/60 text-primary"
-                                          : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/20"
-                                      }`}
-                                    >
-                                      {slot.booked && (
-                                        <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500" />
-                                      )}
-                                      {slot.label}
-                                    </button>
-                                  ))}
-                                </div>
-
-                                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                                  <span className="flex items-center gap-1">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-primary/40" /> Available
-                                  </span>
-                                  <span className="flex items-center gap-1">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-red-500/40" /> Booked
-                                  </span>
-                                </div>
-                              </>
-                            )}
-                          </div>
-                        )}
-
-                        <div className="flex gap-3 pt-1">
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            onClick={() => setStep("details")}
-                            className="flex-1 rounded-xl h-11 text-base"
-                          >
-                            Back
-                          </Button>
-                          <Button
-                            type="button"
-                            disabled={!selectedDate || !selectedTime}
-                            onClick={() => setStep("confirm")}
-                            className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-xl h-11 text-base font-semibold transition-all disabled:opacity-60"
-                          >
+                        <div className="flex gap-2 pt-0.5">
+                          <Button type="button" variant="ghost" onClick={() => setStep("details")} className="flex-1 rounded-xl h-9 text-sm">Back</Button>
+                          <Button type="button" disabled={!selectedDate || !selectedTime} onClick={() => setStep("confirm")}
+                            className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-xl h-9 text-sm font-semibold transition-all disabled:opacity-60">
                             Review Booking
                           </Button>
                         </div>
                       </>
                     )}
 
+                    {/* Step 3: Confirm */}
                     {step === "confirm" && (
-                      <div className="space-y-3">
-                        <div className="rounded-xl bg-white/5 border border-white/10 p-3 space-y-2">
-                          <h4 className="text-sm font-semibold text-white">Appointment Summary</h4>
-                          <div className="space-y-1.5 text-sm">
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Name</span>
-                              <span className="text-white">{name}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Contact</span>
-                              <span className="text-white">{contact} ({contactType === "email" ? "Email" : "WhatsApp"})</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Date</span>
-                              <span className="text-white">{selectedDate && format(selectedDate, "EEEE, MMMM d, yyyy")}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Time</span>
-                              <span className="text-white">{selectedTime?.label}</span>
-                            </div>
+                      <div className="space-y-2.5">
+                        <div className="rounded-xl bg-white/5 border border-white/10 p-3 space-y-1.5">
+                          <h4 className="text-xs font-semibold text-white/70 uppercase tracking-wide">Summary</h4>
+                          <div className="space-y-1 text-sm">
+                            {[
+                              { label: "Name",    value: name },
+                              { label: "Contact", value: `${contact} (Email)` },
+                              { label: "Date",    value: selectedDate ? format(selectedDate, "EEE, MMM d, yyyy") : "" },
+                              { label: "Time",    value: selectedTime?.label ?? "" },
+                            ].map(({ label, value }) => (
+                              <div key={label} className="flex justify-between gap-4">
+                                <span className="text-muted-foreground text-xs">{label}</span>
+                                <span className="text-white text-xs text-right">{value}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
-
                         {error && (
-                          <div className="flex items-start gap-2 p-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
-                            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                            <span>{error}</span>
+                          <div className="flex items-start gap-1.5 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+                            <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" /><span>{error}</span>
                           </div>
                         )}
-
-                        <div className="flex gap-3">
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            onClick={() => setStep("calendar")}
-                            className="flex-1 rounded-xl h-11 text-base"
-                          >
-                            Back
-                          </Button>
-                          <Button
-                            type="submit"
-                            disabled={submitting}
-                            className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-xl h-11 text-base font-semibold transition-all disabled:opacity-60"
-                          >
-                            {submitting ? (
-                              <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Confirming…</span>
-                            ) : (
-                              "Confirm Booking"
-                            )}
+                        <div className="flex gap-2">
+                          <Button type="button" variant="ghost" onClick={() => setStep("calendar")} className="flex-1 rounded-xl h-9 text-sm">Back</Button>
+                          <Button type="submit" disabled={submitting} className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-xl h-9 text-sm font-semibold transition-all disabled:opacity-60">
+                            {submitting ? <span className="flex items-center gap-1.5"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Confirming…</span> : "Confirm Booking"}
                           </Button>
                         </div>
                       </div>
@@ -408,7 +348,7 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                   </form>
                 </>
               )}
-              </div>{/* end scrollable */}
+              </div>
             </div>
           </MotionDiv>
         </>
