@@ -402,12 +402,6 @@ html::-webkit-scrollbar {
   opacity: .55;
 }
 
-/* Booking modal — compact calendar rows */
-.booking-cal button[data-day] {
-  aspect-ratio: unset !important;
-  height: 1.6rem !important;
-}
-
 .bg-grid-mask {
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
           mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
