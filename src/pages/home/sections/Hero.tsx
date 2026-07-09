@@ -67,15 +67,6 @@ export function Hero({ onOpenAudit }: HeroProps) {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="flex flex-col gap-6 max-w-4xl"
             >
-              <motion.span
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.05, ease: "easeOut" }}
-                className="font-brand text-2xl md:text-3xl tracking-wide text-primary/90"
-              >
-                Yalla Viral
-              </motion.span>
-
               <motion.h1
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}

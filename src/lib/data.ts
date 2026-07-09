@@ -83,7 +83,7 @@ export const howItWorksSteps = [
 
 export const socialLinks = [
   { icon: "Instagram", label: "Instagram", href: "https://www.instagram.com/yallaviral.qa/?utm_source=ig_web_button_share_sheet" },
-  { icon: "Linkedin",  label: "LinkedIn",  href: "#" },
+  { icon: "Linkedin",  label: "LinkedIn",  href: "https://www.linkedin.com/company/yalla-viral/" },
 ];
 
 export const revenueChartData = [40, 25, 45, 30, 60, 50, 85];
