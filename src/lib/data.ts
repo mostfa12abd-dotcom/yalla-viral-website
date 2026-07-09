@@ -1,4 +1,4 @@
-import { HeadphonesIcon, Share2, Layout, PhoneCall, Camera, Settings, Users, TrendingUp, Clock } from "lucide-react";
+import { HeadphonesIcon, Share2, Layout, PhoneCall, Bot, Settings, Users, TrendingUp, Clock } from "lucide-react";
 import type { CardStackItem } from "@/components/custom/CardStack";
 
 export const navLinks = [
@@ -18,7 +18,7 @@ export const services = [
   { icon: Share2,         title: "Marketing Automation",  desc: "Intelligent campaigns that nurture leads and convert 24/7.",         color: "text-sky-400",   showLogin: false },
   { icon: Layout,         title: "Website Design",        desc: "Stunning, conversion-focused websites that capture your brand.",     color: "text-indigo-400", showLogin: false },
   { icon: PhoneCall,      title: "Social Media",          desc: "Grow your audience with strategic content and engagement.",          color: "text-blue-300",  showLogin: false },
-  { icon: Camera,         title: "Photography & Video",   desc: "Premium visual content that tells your brand's unique story.",      color: "text-sky-300",   showLogin: false },
+  { icon: Bot,            title: "AI Business Agents",     desc: "Custom AI agents that handle your sales, support, and operations — so you can focus on growth.",  color: "text-sky-300",   showLogin: false },
   { icon: Settings,       title: "Business Automation",   desc: "Streamline operations with smart, connected workflows.",             color: "text-blue-400",  showLogin: false },
 ];
 
@@ -56,9 +56,9 @@ export const portfolioItems = [
     border: "border-secondary/30",
   },
   {
-    category: "Photography & Video",
-    title: "Restaurant Group — Campaign That Went Viral",
-    desc: "Produced a cinematic brand film and product shoot that earned 1.4M views organically across social platforms.",
+    category: "AI Business Agents",
+    title: "Restaurant Group — Bookings on Autopilot",
+    desc: "Deployed an AI agent that handled reservations, follow-ups, and customer queries around the clock — no staff required.",
     stat: "1.4M Views",
     color: "from-primary/30 to-primary/5",
     border: "border-primary/30",
