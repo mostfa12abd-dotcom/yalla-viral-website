@@ -1,10 +1,9 @@
-﻿import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 import { navLinks, socialLinks } from "@/lib/data";
 
 const iconMap: Record<string, React.ElementType> = {
   Instagram,
   Linkedin,
-  Twitter,
 };
 
 export function Footer() {

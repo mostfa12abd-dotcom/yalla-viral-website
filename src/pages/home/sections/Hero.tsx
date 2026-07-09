@@ -15,9 +15,6 @@ export function Hero({ onOpenAudit }: HeroProps) {
 
   const content = (
     <div className="flex flex-col gap-6 max-w-4xl">
-      <span className="font-brand text-2xl md:text-3xl tracking-wide text-primary/90">
-        Yalla Viral
-      </span>
       <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] md:text-[clamp(3rem,5vw,5rem)] font-bold font-heading leading-[1.1] tracking-tight text-foreground">
         Solutions That Generate Leads, Answer Calls &amp; Grow Revenue
       </h1>
