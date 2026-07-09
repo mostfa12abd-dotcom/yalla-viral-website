@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { MotionDiv, AnimatedPresence } from "@/lib/MotionSafe";
 import { CardStack, type CardStackItem } from "@/components/custom/CardStack";
 import { webDemoItems } from "@/lib/data";
-import { X, Maximize2 } from "lucide-react";
+import { X, Maximize2, Layers } from "lucide-react";
 
 export function WebDemos() {
   const [fullscreen, setFullscreen] = useState<string | null>(null);
@@ -21,9 +21,12 @@ export function WebDemos() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-12 space-y-3"
         >
-          <h2 className="text-fluid-heading font-bold font-heading">Live Web Demos</h2>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium w-fit mx-auto">
+            <Layers className="w-3.5 h-3.5" /> Our Work
+          </div>
+          <h2 className="text-fluid-heading font-bold font-heading">Websites We've Built</h2>
           <p className="text-muted-foreground text-sm md:text-base">
-            Click a demo to preview — swipe left/right to browse.
+            Real client projects — designed, developed, and delivered by us. Click any card to explore it live.
           </p>
         </MotionDiv>
 
