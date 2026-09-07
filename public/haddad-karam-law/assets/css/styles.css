@@ -1,0 +1,172 @@
+/* ============ HADDAD & KARAM — design system ============ */
+:root{
+  --charcoal:#1C2430;
+  --charcoal-2:#2A3648;
+  --copper:#B87333;
+  --copper-soft:#E9C893;
+  --copper-deep:#8A5A24;
+  --ivory:#FAF6F0;
+  --sand:#EDE4D6;
+  --slate:#4A5560;
+  --line:rgba(184,115,51,.35);
+}
+html{scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0}
+body{font-family:'IBM Plex Sans','Amiri',system-ui,sans-serif;background:var(--ivory);color:var(--charcoal)}
+html[lang="ar"] body{font-family:'Amiri','IBM Plex Sans',system-ui,sans-serif}
+.font-display{font-family:'Fraunces',Georgia,serif;font-optical-sizing:auto;font-variation-settings:'wght' 400;text-rendering:optimizeLegibility}
+html[lang="ar"] .font-display{font-family:'Amiri',serif;font-optical-sizing:auto}
+h1,h2,h3,h4,h5,h6{letter-spacing:-.02em;text-wrap:balance}
+p,li{text-wrap:pretty}
+
+/* ---------- prefers-reduced-motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* single copper divider (vs original double black) */
+.rule-copper{height:1px;background:linear-gradient(90deg,transparent,var(--copper),transparent)}
+
+/* hand-drawn pencil sketch card */
+.sketch-card{position:relative;border:2px solid var(--ivory);border-radius:255px 18px 225px 18px/18px 225px 18px 255px!important;transform:rotate(-1deg);filter:url(#pencil-wobble)}
+.sketch-card::before{content:"";position:absolute;inset:4px;border:1.5px solid rgba(250,246,240,.45);border-radius:18px 225px 18px 255px/255px 18px 255px 18px;pointer-events:none;transform:rotate(.6deg)}
+
+/* ---------- sketch system: hand-drawn pencil site-wide ---------- */
+/* small badge pill — full wobble (filter OK, text tiny) */
+.sketch-pill{position:relative;border-radius:225px 20px 255px 20px/20px 255px 20px 225px!important;border-color:transparent}
+.sketch-pill::before{content:"";position:absolute;inset:0;pointer-events:none;border:2px solid rgba(184,115,51,.6);border-radius:inherit;filter:url(#pencil-wobble)}
+
+/* buttons — sketch pills, no filter so labels stay crisp */
+.btn-copper{border-radius:225px 20px 255px 20px/20px 255px 20px 225px}
+.btn-ghost{border-radius:20px 255px 20px 225px/225px 20px 255px 20px;border-width:2px}
+.btn-ghost-light{border-radius:255px 20px 225px 20px/20px 225px 20px 255px;border-width:2px}
+
+/* form fields — pencil outline */
+.field{border-radius:18px 225px 18px 255px/255px 18px 255px 18px;border-width:1.5px}
+
+/* nav dropdown + CTA banner + back-to-top */
+.nav-drop{border-radius:18px 225px 18px 255px/255px 18px 225px 18px}
+.band-dark{border-radius:30px 12px 34px 14px/14px 34px 12px 30px}
+#toTop{border-radius:48% 52% 46% 54%/54% 46% 52% 48%}
+
+/* commitment section — same sketch frames, photo + badge stay crisp */
+.commitment-img{position:relative;border-radius:30px 10px 34px 12px/12px 34px 10px 30px}
+.commitment-img img{border-radius:inherit;display:block}
+.commitment-img::before, .commitment-badge::before{
+  content:"";position:absolute;inset:3px;z-index:2;pointer-events:none;
+  border:2px solid rgba(184,115,51,.65);border-radius:inherit;filter:url(#pencil-wobble);
+}
+.commitment-img::after, .commitment-badge::after{
+  content:"";position:absolute;inset:8px;z-index:2;pointer-events:none;
+  border:1.5px solid rgba(184,115,51,.4);border-radius:inherit;transform:rotate(.6deg);filter:url(#pencil-wobble);
+}
+.commitment-badge{border-color:transparent;border-radius:255px 18px 225px 18px/18px 225px 18px 255px;transform:rotate(-1deg);z-index:3}
+
+/* ---------- sketch frames: wobbly edges, razor-sharp text ---------- */
+/* wobble lives ONLY on pseudo-element frames — inner text is never filtered */
+.practice-row, .stat-card, .blog-card, .tst-card, .office-card, .band-dark{position:relative;border-color:transparent}
+.practice-row::before, .stat-card::before, .blog-card::before, .tst-card::before, .office-card::before, .band-dark::before{
+  content:"";position:absolute;inset:3px;z-index:2;pointer-events:none;
+  border:2px solid rgba(184,115,51,.65);border-radius:inherit;filter:url(#pencil-wobble);
+}
+.practice-row::after, .stat-card::after, .blog-card::after, .tst-card::after, .office-card::after, .band-dark::after{
+  content:"";position:absolute;inset:8px;z-index:2;pointer-events:none;
+  border:1.5px solid rgba(184,115,51,.4);border-radius:inherit;transform:rotate(.6deg);filter:url(#pencil-wobble);
+}
+.practice-row.bg-charcoal::before, .blog-card.bg-charcoal::before,
+.stat-card::before, .band-dark::before{border-color:rgba(250,246,240,.6)}
+.practice-row.bg-charcoal::after, .blog-card.bg-charcoal::after,
+.stat-card::after, .band-dark::after{border-color:rgba(250,246,240,.4)}
+/* alternate tilt — only after reveal finishes so entrance animation keeps working */
+.practice-row.reveal.visible:nth-child(odd), .stat-card.reveal.visible:nth-child(odd),
+.blog-card.reveal.visible:nth-child(odd), .office-card.reveal.visible:nth-child(odd),
+.band-dark.reveal.visible{transform:rotate(-.7deg)}
+.practice-row.reveal.visible:nth-child(even), .stat-card.reveal.visible:nth-child(even),
+.blog-card.reveal.visible:nth-child(even), .office-card.reveal.visible:nth-child(even){transform:rotate(.7deg)}
+.tst-card{transform:rotate(-.6deg)}
+/* buttons — wobbled double frame in pill form, labels never filtered */
+.btn-copper, .btn-ghost, .btn-ghost-light{position:relative;border-color:transparent}
+.btn-copper::before, .btn-ghost::before, .btn-ghost-light::before{
+  content:"";position:absolute;inset:1px;pointer-events:none;
+  border:2px solid currentColor;opacity:.55;border-radius:inherit;filter:url(#pencil-wobble);
+}
+.btn-copper::after, .btn-ghost::after, .btn-ghost-light::after{
+  content:"";position:absolute;inset:5px;pointer-events:none;
+  border:1.5px solid currentColor;opacity:.35;border-radius:inherit;transform:rotate(.5deg);filter:url(#pencil-wobble);
+}
+
+/* marquee ticker */
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+html[dir="rtl"] .ticker-track{animation-direction:reverse}
+.ticker-track{display:flex;width:max-content;animation:ticker 32s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+
+/* practice rows */
+.practice-img{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s cubic-bezier(.2,.7,.2,1)}
+.practice-row:hover .practice-img{transform:scale(1.04)}
+.link-arrow svg{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.link-arrow:hover svg{transform:translateX(6px)}
+html[dir="rtl"] .link-arrow:hover svg{transform:translateX(-6px) scaleX(-1)}
+html[dir="rtl"] .flip-rtl{transform:scaleX(-1)}
+
+/* testimonial carousel */
+.tst-slide{display:none}
+.tst-slide.active{display:grid;animation:fadeSlide .5s cubic-bezier(.22,1,.36,1)}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.tst-dot{width:10px;height:10px;border-radius:99px;background:#D8C9B4;transition:width .3s cubic-bezier(.22,1,.36,1),background .3s cubic-bezier(.22,1,.36,1);cursor:pointer}
+.tst-dot.active{width:34px;background:var(--copper)}
+
+/* buttons */
+.btn-copper{background:var(--copper);color:#fff;transition:background-color .3s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s cubic-bezier(.22,1,.36,1)}
+.btn-copper:hover{background:var(--copper-deep);transform:translateY(-2px);box-shadow:0 12px 28px -10px rgba(184,115,51,.6)}
+.btn-ghost{border:1px solid var(--charcoal);transition:background-color .3s cubic-bezier(.22,1,.36,1),color .3s cubic-bezier(.22,1,.36,1),border-color .3s cubic-bezier(.22,1,.36,1)}
+.btn-ghost:hover{background:var(--charcoal);color:var(--ivory)}
+.btn-ghost-light{border:1px solid rgba(250,246,240,.5);color:var(--ivory);transition:background-color .3s cubic-bezier(.22,1,.36,1),color .3s cubic-bezier(.22,1,.36,1),border-color .3s cubic-bezier(.22,1,.36,1)}
+.btn-ghost-light:hover{background:var(--ivory);color:var(--charcoal)}
+
+/* nav dropdown */
+.nav-drop{opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s cubic-bezier(.22,1,.36,1),visibility .25s cubic-bezier(.22,1,.36,1),transform .25s cubic-bezier(.22,1,.36,1)}
+.has-drop:hover .nav-drop,.has-drop:focus-within .nav-drop{opacity:1;visibility:visible;transform:none}
+
+/* inputs */
+.field{background:#fff;border:1px solid #E2D6C2;border-radius:10px;padding:.8rem 1rem;width:100%;transition:border-color .25s cubic-bezier(.22,1,.36,1),box-shadow .25s cubic-bezier(.22,1,.36,1);color:var(--charcoal)}
+.field:focus{outline:none;border-color:var(--copper);box-shadow:0 0 0 3px rgba(184,115,51,.18)}
+.field::placeholder{color:#9AA3AD}
+
+/* back to top */
+#toTop{opacity:0;visibility:hidden;transition:opacity .3s cubic-bezier(.22,1,.36,1),visibility .3s cubic-bezier(.22,1,.36,1)}
+#toTop.show{opacity:1;visibility:visible}
+
+/* copper texture band */
+.band-dark{background:radial-gradient(1200px 500px at 85% -10%,rgba(184,115,51,.28),transparent 60%),
+  radial-gradient(900px 420px at 8% 110%,rgba(184,115,51,.16),transparent 55%),var(--charcoal)}
+::selection{background:var(--copper);color:#fff}
+
+/* section background textures */
+.tex-sand{background:linear-gradient(rgba(250,246,240,.6),rgba(250,246,240,.6)),url('../img/texture-sand.jpg') center/auto repeat}
+.tex-marble{background:linear-gradient(rgba(250,246,240,.5),rgba(250,246,240,.5)),url('../img/texture-marble.jpg') center/auto repeat}
+.tex-lines{background:linear-gradient(rgba(250,246,240,.45),rgba(250,246,240,.45)),url('../img/texture-lines.jpg') center/auto repeat}
+.tex-dark{background:linear-gradient(rgba(28,36,48,.7),rgba(28,36,48,.7)),url('../img/texture-dark.jpg') center/auto repeat}
+
+/* custom radii — hand-drawn sketch, varied by component (no filter: text stays crisp) */
+.practice-row{border-radius:28px 8px 30px 10px/10px 30px 8px 28px!important}
+.practice-row:nth-child(1){border-radius:34px 8px 10px 30px/10px 30px 8px 34px!important}
+.practice-row:nth-child(2){border-radius:8px 34px 30px 10px/30px 10px 34px 8px!important}
+.practice-row:nth-child(3){border-radius:30px 32px 8px 10px/10px 8px 32px 30px!important}
+.tst-card{border-radius:32px 10px 36px 12px/12px 36px 10px 32px!important}
+.office-card{border-radius:10px 32px 12px 36px/36px 12px 32px 10px!important}
+.stat-card{border-radius:14px 26px 16px 30px/30px 16px 26px 14px!important}
+.stat-card:nth-child(1){border-radius:28px 10px 24px 10px/10px 24px 10px 28px!important}
+.stat-card:nth-child(2){border-radius:10px 28px 10px 24px/24px 10px 28px 10px!important}
+.stat-card:nth-child(3){border-radius:24px 10px 28px 10px/10px 28px 10px 24px!important}
+.stat-card:nth-child(4){border-radius:10px 24px 10px 28px/28px 10px 24px 10px!important}
+.blog-card:nth-child(1){border-radius:30px 8px 8px 28px/8px 8px 28px 30px!important}
+.blog-card:nth-child(2){border-radius:8px 30px 28px 8px/28px 8px 30px 8px!important}
+.blog-card:nth-child(3){border-radius:26px 8px 30px 8px/8px 30px 8px 26px!important}
+/* tables use tabular figures */
+table,td,th,dl dt{font-variant-numeric:tabular-nums}

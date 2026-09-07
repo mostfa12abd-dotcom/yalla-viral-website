@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1125" viewBox="0 0 900 1125">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A3648"/>
+      <stop offset=".65" stop-color="#1C2430"/>
+      <stop offset="1" stop-color="#B87333"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1125" fill="url(#g)"/>
+  <circle cx="450" cy="300" r="220" fill="#B87333" opacity=".2"/>
+  <text x="450" y="600" text-anchor="middle" font-family="Georgia,serif" font-size="52" fill="#FAF6F0" opacity=".9">HADDAD &amp; KARAM</text>
+  <text x="450" y="665" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#E9C893" opacity=".85">PLACEHOLDER 4:5 — replace with AI image</text>
+</svg>

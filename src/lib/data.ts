@@ -107,4 +107,11 @@ export const webDemoItems: CardStackItem[] = [
     href: "https://hotel.yallaviral.com/",
     imageSrc: screenshotUrl("https://hotel.yallaviral.com/"),
   },
+  {
+    id: 3,
+    title: "Haddad & Karam LLP",
+    description: "Bilingual law firm website — Haddad & Karam by Yalla Viral.",
+    href: "/haddad-karam-law/",
+    imageSrc: screenshotUrl("https://yalla-viral-website.vercel.app/haddad-karam-law/"),
+  },
 ];
