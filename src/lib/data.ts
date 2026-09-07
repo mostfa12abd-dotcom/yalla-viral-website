@@ -71,6 +71,14 @@ export const portfolioItems = [
     color: "from-secondary/30 to-secondary/5",
     border: "border-secondary/30",
   },
+  {
+    category: "Website Design",
+    title: "Haddad & Karam LLP — Law Firm Website",
+    desc: "Bilingual editorial-style site for a New York injury & estate law firm — appointment-first UX with a calm, high-trust brand.",
+    stat: "Bilingual AR/EN",
+    color: "from-primary/30 to-primary/5",
+    border: "border-primary/30",
+  },
 ];
 
 
