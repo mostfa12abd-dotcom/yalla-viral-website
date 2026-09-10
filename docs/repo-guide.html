@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yalla Viral Website — Full Repo Guide</title>
+<style>
+  :root { --bg:#0b0f14; --panel:#121821; --line:#223041; --txt:#dbe4ee; --mut:#8fa0b3; --acc:#2dd4bf; --warn:#fbbf24; }
+  * { box-sizing:border-box; }
+  body { font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--txt); margin:0; padding:0 0 80px; }
+  header { background:linear-gradient(135deg,#0e2a28,#123); border-bottom:1px solid var(--line); padding:36px 28px; }
+  header h1 { margin:0 0 6px; font-size:28px; }
+  header p { margin:4px 0; color:var(--mut); }
+  header code, td code { color:var(--acc); }
+  nav { position:sticky; top:0; background:#0d131bcc; backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:10px 28px; z-index:5; }
+  nav a { color:var(--acc); margin-right:16px; text-decoration:none; font-size:14px; }
+  main { max-width:1100px; margin:0 auto; padding:0 28px; }
+  h2 { margin-top:44px; border-bottom:1px solid var(--line); padding-bottom:8px; }
+  h3 { color:var(--acc); margin-top:28px; }
+  table { width:100%; border-collapse:collapse; margin:12px 0 24px; font-size:14px; }
+  th, td { text-align:left; border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+  th { background:var(--panel); }
+  td:first-child { white-space:nowrap; font-family:ui-monospace,Consolas,monospace; font-size:13px; color:var(--acc); }
+  .tag { display:inline-block; font-size:11px; padding:1px 8px; border-radius:20px; border:1px solid var(--line); margin-left:8px; color:var(--mut); }
+  .used { color:#7CFFB2; border-color:#1f6f43; }
+  .unused { color:var(--warn); border-color:#7a5b12; }
+  .live { color:#7db8ff; border-color:#24507a; }
+  .note { background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--acc); padding:12px 16px; border-radius:0 8px 8px 0; margin:16px 0; font-size:14px; }
+  .warnbox { border-left-color:var(--warn); }
+  code.block { display:block; background:#000; padding:12px 16px; border-radius:8px; margin:12px 0; white-space:pre; overflow-x:auto; }
+  footer { color:var(--mut); font-size:13px; margin-top:60px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Yalla Viral Website — Full Repository Guide</h1>
+  <p>Repo: <code>mostfa12abd-dotcom/yalla-viral-website</code> &nbsp;•&nbsp; Live: <code>https://yalla-viral-website.vercel.app</code> &nbsp;•&nbsp; 202 files</p>
+  <p>Stack: Vite 5 + React 18 + TypeScript + Tailwind CSS v4 + shadcn/ui (New York) + framer-motion + wouter. Dark-mode only. Deploys automatically from <code>main</code> via Vercel.</p>
+  <p>Commands: <code>pnpm run dev</code> (local server) • <code>pnpm run typecheck</code> • <code>pnpm run build</code> (outputs <code>dist/</code>)</p>
+</header>
+<nav>
+  <a href="#root">Root</a><a href="#public">public/</a><a href="#law">Law site</a><a href="#src">src/</a><a href="#ui">UI library</a><a href="#home">Home page</a><a href="#sandbox">Sandbox</a><a href="#cleanup">Cleanup log</a>
+</nav>
+<main>
+
+<h2 id="root">1. Root files — project config, docs, entry</h2>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>index.html</td><td>The single HTML shell Vite builds from. Mounts <code>#root</code>, loads <code>/src/main.tsx</code>, sets title/meta/OG tags (uses <code>/og-image.png</code>), loads Inter + Plus Jakarta Sans fonts.</td></tr>
+<tr><td>package.json</td><td>Project <code>@workspace/yalla-viral</code>. Scripts: dev / build / serve / typecheck. Deps: Radix primitives, Tailwind v4, framer-motion, lenis (smooth scroll), recharts, Vapi web SDK, wouter router, zod + react-hook-form.</td></tr>
+<tr><td>pnpm-lock.yaml</td><td><span class="tag live">CANONICAL</span> Lockfile for pnpm — the package manager actually used. Keep.</td></tr>
+<tr><td>package-lock.json</td><td><span class="tag live">KEEP — DO NOT DELETE</span> npm lockfile. Vercel sees it and installs with npm. Deleting it would silently switch Vercel to pnpm. Harmless to keep.</td></tr>
+<tr><td>vite.config.ts</td><td>Vite setup: React + Tailwind plugins, dev server on 0.0.0.0, <code>@ → src</code> alias, <code>@assets → ../../attached_assets</code> alias (currently unused), React dedupe, output <code>dist/</code>, vendor chunk splitting (framer / charts / radix / icons / query / lenis).</td></tr>
+<tr><td>tsconfig.json</td><td>TypeScript config: covers <code>src/**</code>, strict-ish, <code>noEmit</code> (typecheck only). <code>pnpm run typecheck</code> must pass before push.</td></tr>
+<tr><td>components.json</td><td>shadcn/ui config: style “new-york”, TSX, CSS at <code>src/index.css</code>. Used when adding new shadcn components via CLI.</td></tr>
+<tr><td>.gitignore</td><td>Ignores node_modules, dist, env files, logs, editor/OS files.</td></tr>
+<tr><td>.env.example</td><td>Template for env vars (Vapi public key + assistant IDs). Safe committed template — put real values in Vercel dashboard or local <code>.env</code> (git-ignored).</td></tr>
+<tr><td>.replit</td><td>Replit workspace config (run button, modules). Needed if editing on Replit.</td></tr>
+<tr><td>replit.nix</td><td>Replit system package (unzip). Infra — leave alone.</td></tr>
+<tr><td>replit.md</td><td>Replit agent notes: stack overview + how the project is organized. Human/agent onboarding doc.</td></tr>
+<tr><td>.replit-artifact/artifact.toml</td><td>Replit artifact manifest (kind=web, title “Yalla Viral”). Platform plumbing — leave alone.</td></tr>
+<tr><td>DESIGN.md</td><td>Design guidelines snapshot (June 2026): stack, dark-mode-only status, component/style rules. Reference doc.</td></tr>
+<tr><td>COLOR-TOKENS.md</td><td>Snapshot of the OLD amber/orange theme tokens, kept for reference before the teal/green rebrand. Reference only.</td></tr>
+</table>
+
+<h2 id="public">2. public/ — files served as-is (no build step)</h2>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>public/robots.txt</td><td><code>User-agent: * / Allow: /</code> — lets search engines index the whole site.</td></tr>
+<tr><td>public/og-image.png</td><td><span class="tag used">USED</span> Favicon + Open Graph + Twitter card image, referenced 4× in <code>index.html</code>.</td></tr>
+<tr><td>public/dashboard-screenshot.png</td><td><span class="tag used">USED</span> Product screenshot shown in the DashboardHighlight section.</td></tr>
+<tr><td>public/haddad-karam-law/…</td><td><span class="tag used">USED</span> The embedded Haddad &amp; Karam law-firm microsite, served at <code>/haddad-karam-law/</code>. See §3.</td></tr>
+</table>
+
+<h2 id="law">3. public/haddad-karam-law/ — embedded law-firm microsite</h2>
+<div class="note">Fully self-contained static site (no build). Copied from <code>C:\Users\aabda\haddad-karam-law</code>. Linked from the homepage “Web Demos” cards (<code>webDemoItems id 3</code> → <code>/haddad-karam-law/</code>). JPGs were web-optimized (51.8MB → 4.7MB). <b>Rule: asset paths inside index.html must stay relative (<code>assets/…</code>), never prefixed — the page is served from a subfolder.</b></div>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>index.html</td><td>The law site page: hero (video bg), practice areas, commitment, results, testimonials, blog, offices, contact. Bilingual EN/AR toggle (persisted in localStorage).</td></tr>
+<tr><td>AI-IMAGE-PROMPTS.md</td><td>Midjourney/DALL·E/Firefly/Imagen prompts (Arabic + English) used to generate the site's imagery, with file names + global style suffix. Content-creation doc, not loaded by the page.</td></tr>
+<tr><td>assets/css/styles.css</td><td>Law-site design system: charcoal/copper/sand palette, typography, section styles. Images referenced as <code>url('../img/…')</code> — valid from the css/ folder.</td></tr>
+<tr><td>assets/js/main.js</td><td>Law-site interactions only (language toggle, menus, animations). No asset paths inside — safe.</td></tr>
+<tr><td>assets/img/hero-bg.mp4</td><td>Hero background video.</td></tr>
+<tr><td>assets/img/hero-bg.jpg</td><td>Hero poster/fallback image.</td></tr>
+<tr><td>assets/img/team-cutout.png</td><td>Cut-out team photo overlaid on hero.</td></tr>
+<tr><td>assets/img/team-arch.jpg</td><td>Team section photo.</td></tr>
+<tr><td>assets/img/practice-estates.jpg</td><td>Practice card: wills &amp; estates.</td></tr>
+<tr><td>assets/img/practice-injury.jpg</td><td>Practice card: personal injury.</td></tr>
+<tr><td>assets/img/practice-workers.jpg</td><td>Practice card: workers’ comp.</td></tr>
+<tr><td>assets/img/city-manhattan.jpg</td><td>Offices: Manhattan.</td></tr>
+<tr><td>assets/img/city-brooklyn.jpg</td><td>Offices: Brooklyn.</td></tr>
+<tr><td>assets/img/city-queens.jpg</td><td>Offices: Queens.</td></tr>
+<tr><td>assets/img/commitment.jpg</td><td>Commitment section photo.</td></tr>
+<tr><td>assets/img/cta-bg.jpg</td><td>Call-to-action band background.</td></tr>
+<tr><td>assets/img/blog-1.jpg / blog-2.jpg / blog-3.jpg</td><td>Blog card thumbnails (3).</td></tr>
+<tr><td>assets/img/texture-dark.jpg / texture-marble.jpg / texture-sand.jpg / texture-lines.jpg</td><td>Background textures for dark, marble, sand, and lined sections (4).</td></tr>
+<tr><td>assets/img/ph-43.svg / ph-portrait.svg / ph-wide.svg</td><td>SVG placeholder graphics (4:3, portrait, wide) used where photos are still pending.</td></tr>
+</table>
+
+<h2 id="src">4. src/ — the React app</h2>
+<h3>4a. Entry, shell, global style</h3>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>src/main.tsx</td><td>Entry point: mounts <code>&lt;App/&gt;</code> into <code>#root</code>, imports global CSS.</td></tr>
+<tr><td>src/App.tsx</td><td>App shell: React-Query provider, tooltip provider, scroll progress bar, wouter router (<code>/</code> → Home, everything else → NotFound), global toaster.</td></tr>
+<tr><td>src/index.css</td><td>Global stylesheet (452 lines): Tailwind v4 import, Peace Sans display font, dark variant, full shadcn theme tokens (background/foreground/border/card/popover…), brand colors, animations.</td></tr>
+<tr><td>src/pages/not-found.tsx</td><td>404 page (card + alert icon) rendered for any unknown route.</td></tr>
+<tr><td>src/pages/dashboard/index.tsx</td><td><span class="tag unused">UNUSED — STUB</span> “Coming soon” placeholder for client analytics dashboard. No route points to it. Keep for later or delete.</td></tr>
+</table>
+<h3>4b. src/lib/ — data + helpers</h3>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>src/lib/data.ts</td><td><span class="tag live">EDIT THIS TO CHANGE SITE CONTENT</span> All homepage content in one place: navLinks, stats (4 KPIs), services (6 cards), portfolioItems (legacy, unused), howItWorksSteps, socialLinks, revenueChartData, and <code>webDemoItems</code> (Pickl / Hotel / Haddad &amp; Karam cards with live URLs + microlink screenshots).</td></tr>
+<tr><td>src/lib/utils.ts</td><td><code>cn()</code> helper (clsx + tailwind-merge) used by every UI component to merge class names.</td></tr>
+<tr><td>src/lib/MotionSafe.tsx</td><td><code>MotionDiv</code> + <code>AnimatedPresence</code> wrappers around framer-motion that respect reduced-motion settings. Used by all sections.</td></tr>
+<tr><td>src/lib/outlook-calendar.ts</td><td>Booking backend client: n8n webhooks (<code>n8nserver.yallaviral.com</code>) for booked-slots + book-appointment, time-slot generation, caching. Powers BookingModal.</td></tr>
+</table>
+<h3>4c. src/hooks/</h3>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>src/hooks/useLenis.ts</td><td>Initializes Lenis buttery smooth scrolling.</td></tr>
+<tr><td>src/hooks/use-mobile.tsx</td><td><code>useIsMobile()</code> breakpoint hook (used by sidebar component).</td></tr>
+<tr><td>src/hooks/use-toast.ts</td><td>Toast state machine (reducer + dispatch) behind the Toaster UI.</td></tr>
+</table>
+<h3>4d. src/components/custom/ — hand-built brand components</h3>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>CallOrBookPopover.tsx</td><td>“Call us / Book online” popover used in Hero + Portfolio CTAs.</td></tr>
+<tr><td>CardStack.tsx</td><td>303-line animated 3D card-stack carousel (framer-motion, reduced-motion aware). Renders the WebDemos cards + fullscreen preview modal.</td></tr>
+<tr><td>CountUp.tsx</td><td>Animated number counter (counts up when scrolled into view). Used for stats.</td></tr>
+<tr><td>MagneticButton.tsx</td><td>Button that gravitates toward the cursor (spring physics). Used in Hero, Vapi button, Portfolio.</td></tr>
+<tr><td>ScrollProgressBar.tsx</td><td>Thin reading-progress bar pinned to top of every page (mounted in App).</td></tr>
+<tr><td>VapiCallButton.tsx</td><td>“Try Call Us Now” AI-voice demo button: opens a live Vapi voice call (uses <code>VITE_VAPI_*</code> env vars), with calling/end states.</td></tr>
+</table>
+
+<h2 id="ui">5. src/components/ui/ — shadcn/ui component library (55 files)</h2>
+<div class="note">Standard shadcn/ui “New York” primitives on Radix. Only the ones marked <span class="tag used">USED</span> are imported by app code today (button ×11, separator ×4, card ×4, tooltip/toast/label/input ×2, toggle, toaster, textarea, skeleton, sheet, dialog, calendar ×1) — the rest ship with the template so new UI can be built without reinstalling. Unused ones add zero bytes to the bundle (tree-shaken).</div>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>accordion.tsx</td><td>Expandable accordion panels.</td></tr>
+<tr><td>alert-dialog.tsx</td><td>Modal confirmation dialog.</td></tr>
+<tr><td>alert.tsx</td><td>Inline alert banner.</td></tr>
+<tr><td>aspect-ratio.tsx</td><td>Fixed-ratio container.</td></tr>
+<tr><td>avatar.tsx</td><td>User avatar with fallback.</td></tr>
+<tr><td>badge.tsx</td><td>Small status/count badge.</td></tr>
+<tr><td>breadcrumb.tsx</td><td>Breadcrumb navigation trail.</td></tr>
+<tr><td>button-group.tsx</td><td>Joined button groups.</td></tr>
+<tr><td>button.tsx</td><td><span class="tag used">USED</span> Brand button (variants/sizes).</td></tr>
+<tr><td>calendar.tsx</td><td><span class="tag used">USED</span> Date picker (BookingModal).</td></tr>
+<tr><td>card.tsx</td><td><span class="tag used">USED</span> Card + CardContent surfaces.</td></tr>
+<tr><td>carousel.tsx</td><td>Embla-based carousel.</td></tr>
+<tr><td>chart.tsx</td><td>Recharts wrapper (revenue chart).</td></tr>
+<tr><td>checkbox.tsx</td><td>Checkbox input.</td></tr>
+<tr><td>collapsible.tsx</td><td>Show/hide container.</td></tr>
+<tr><td>command.tsx</td><td>Command palette (cmdk).</td></tr>
+<tr><td>context-menu.tsx</td><td>Right-click menu.</td></tr>
+<tr><td>dialog.tsx</td><td><span class="tag used">USED</span> Modal dialog primitive.</td></tr>
+<tr><td>drawer.tsx</td><td>Bottom slide-in panel (vaul).</td></tr>
+<tr><td>dropdown-menu.tsx</td><td>Dropdown menu.</td></tr>
+<tr><td>empty.tsx</td><td>Empty-state placeholder.</td></tr>
+<tr><td>field.tsx</td><td>Form field wrapper.</td></tr>
+<tr><td>form.tsx</td><td>react-hook-form bindings.</td></tr>
+<tr><td>hover-card.tsx</td><td>Hover preview card.</td></tr>
+<tr><td>input-group.tsx</td><td>Input with add-ons.</td></tr>
+<tr><td>input-otp.tsx</td><td>One-time-code input.</td></tr>
+<tr><td>input.tsx</td><td><span class="tag used">USED</span> Text input.</td></tr>
+<tr><td>item.tsx</td><td>List item row.</td></tr>
+<tr><td>kbd.tsx</td><td>Keyboard-shortcut styling.</td></tr>
+<tr><td>label.tsx</td><td><span class="tag used">USED</span> Form label.</td></tr>
+<tr><td>menubar.tsx</td><td>Desktop-style menu bar.</td></tr>
+<tr><td>navigation-menu.tsx</td><td>Nav dropdown menus.</td></tr>
+<tr><td>pagination.tsx</td><td>Page-number navigation.</td></tr>
+<tr><td>popover.tsx</td><td>Floating popover.</td></tr>
+<tr><td>progress.tsx</td><td>Progress bar.</td></tr>
+<tr><td>radio-group.tsx</td><td>Radio options.</td></tr>
+<tr><td>resizable.tsx</td><td>Resizable panels.</td></tr>
+<tr><td>scroll-area.tsx</td><td>Styled scroll container.</td></tr>
+<tr><td>select.tsx</td><td>Dropdown select.</td></tr>
+<tr><td>separator.tsx</td><td><span class="tag used">USED</span> Horizontal/vertical divider.</td></tr>
+<tr><td>sheet.tsx</td><td><span class="tag used">USED</span> Slide-in side panel.</td></tr>
+<tr><td>sidebar.tsx</td><td>App sidebar layout.</td></tr>
+<tr><td>skeleton.tsx</td><td><span class="tag used">USED</span> Loading shimmer placeholder.</td></tr>
+<tr><td>slider.tsx</td><td>Range slider.</td></tr>
+<tr><td>sonner.tsx</td><td>Sonner toast theme bridge.</td></tr>
+<tr><td>spinner.tsx</td><td>Loading spinner.</td></tr>
+<tr><td>switch.tsx</td><td>Toggle switch.</td></tr>
+<tr><td>table.tsx</td><td>Data table.</td></tr>
+<tr><td>tabs.tsx</td><td>Tabbed interface.</td></tr>
+<tr><td>textarea.tsx</td><td><span class="tag used">USED</span> Multi-line input.</td></tr>
+<tr><td>toast.tsx</td><td><span class="tag used">USED</span> Toast primitives.</td></tr>
+<tr><td>toaster.tsx</td><td><span class="tag used">USED</span> Mounted toast viewport (in App).</td></tr>
+<tr><td>toggle-group.tsx</td><td>Grouped toggles.</td></tr>
+<tr><td>toggle.tsx</td><td><span class="tag used">USED</span> Single toggle button.</td></tr>
+<tr><td>tooltip.tsx</td><td><span class="tag used">USED</span> Hover tooltips (provider in App).</td></tr>
+</table>
+
+<h2 id="home">6. Home page assembly — src/pages/home/</h2>
+<div class="note">Render order in <code>index.tsx</code>: Navbar → Hero → Services → DashboardHighlight → WebDemos → Footer (+ lazy BookingModal). Page-level flow: Hero “audit” button → BookingModal → n8n Outlook webhooks.</div>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>pages/home/index.tsx</td><td>Home page composition + booking-modal state (lazy-loaded).</td></tr>
+<tr><td>sections/Navbar.tsx</td><td><span class="tag used">LIVE</span> Sticky nav (links from <code>navLinks</code>).</td></tr>
+<tr><td>sections/Hero.tsx</td><td><span class="tag used">LIVE</span> Hero: magnetic CTA, CallOrBook popover, Vapi voice demo, motion-safe animations.</td></tr>
+<tr><td>sections/Services.tsx</td><td><span class="tag used">LIVE</span> 6 service cards from <code>services</code>.</td></tr>
+<tr><td>sections/DashboardHighlight.tsx</td><td><span class="tag used">LIVE</span> “Try our AI” band: <code>dashboard-screenshot.png</code> + Vapi call button.</td></tr>
+<tr><td>sections/WebDemos.tsx</td><td><span class="tag used">LIVE</span> “Websites We’ve Built” card-stack of <code>webDemoItems</code> (Pickl, Hotel, Haddad &amp; Karam) with fullscreen preview.</td></tr>
+<tr><td>sections/Footer.tsx</td><td><span class="tag used">LIVE</span> Footer: nav links + Instagram/LinkedIn socials.</td></tr>
+<tr><td>sections/StatsStrip.tsx</td><td><span class="tag unused">UNUSED</span> KPI strip (CountUp over <code>stats</code>). Not rendered — wire into <code>index.tsx</code> or delete.</td></tr>
+<tr><td>sections/Portfolio.tsx</td><td><span class="tag unused">UNUSED</span> Case-study cards from <code>portfolioItems</code>. Not rendered — superseded by WebDemos. Wire in or delete.</td></tr>
+<tr><td>components/BookingModal.tsx</td><td><span class="tag used">LIVE</span> 344-line booking dialog: calendar + time slots via Outlook/n8n webhooks, lazy-loaded.</td></tr>
+<tr><td>components/BookingChoiceModal.tsx</td><td><span class="tag unused">UNUSED</span> “Book online vs call us” chooser. Nothing imports it — wire into Hero flow or delete.</td></tr>
+</table>
+
+<h2 id="sandbox">7. artifacts/mockup-sandbox/ — separate design playground (not part of the site)</h2>
+<div class="note">A standalone mini Vite+React app used to preview color-theme mockups. It is <b>never built or served</b> by the main site (root tsconfig/vite only cover the top level). Files:</div>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td>package.json / package-lock.json / tsconfig.json / vite.config.ts / components.json / index.html / .replit-artifact/artifact.toml</td><td>Sandbox scaffolding: workspace package <code>@workspace/mockup-sandbox</code>, own TS/Vite/shadcn configs, “Mockup Canvas” title page, own favicon at <code>public/favicon.svg</code>.</td></tr>
+<tr><td>mockupPreviewPlugin.ts</td><td>Custom Vite plugin: auto-discovers mockup components (fast-glob + chokidar) and generates the module registry below.</td></tr>
+<tr><td>src/main.tsx / src/App.tsx</td><td>Sandbox entry + gallery shell that lazy-loads every discovered mockup for preview.</td></tr>
+<tr><td>src/.generated/mockup-components.ts</td><td><b>Auto-generated, do not edit.</b> Registry of the 3 mockups (CoralIndigo, GoldEmerald, PurpleCyan).</td></tr>
+<tr><td>src/components/mockups/color-themes/CoralIndigo.tsx</td><td>Mockup: coral/indigo theme preview (particle hero).</td></tr>
+<tr><td>src/components/mockups/color-themes/GoldEmerald.tsx</td><td>Mockup: gold/emerald theme preview on deep-navy canvas.</td></tr>
+<tr><td>src/components/mockups/color-themes/PurpleCyan.tsx</td><td>Mockup: purple/cyan theme preview on deep-navy canvas.</td></tr>
+<tr><td>src/index.css / src/lib/utils.ts / src/hooks/use-mobile.tsx / src/hooks/use-toast.ts</td><td>Mirrors of the main app’s stylesheet, <code>cn()</code> helper, and two hooks — kept local so the sandbox runs standalone.</td></tr>
+<tr><td>src/components/ui/*.tsx (55 files: accordion … tooltip)</td><td>Same shadcn/ui set as §5, mirrored so mockups render identically. Same one-line meanings as the table above.</td></tr>
+</table>
+
+<h2 id="cleanup">8. Final organizing — cleanup log</h2>
+<div class="note warnbox"><b>Deleted in this pass (18 files, verified unreferenced before removal):</b> <code>console.log('</code> (0-byte accident) • <code>output.txt</code> • <code>zipFile.zip</code> (1.4MB June snapshot; its <code>.env</code> held only template values, no real secrets) • <code>yalla-viral-design.html</code> (unserved static mockup) • <code>logo-source.jpeg</code> • <code>public/opengraph.jpg</code> (superseded by og-image.png) • <code>public/.removed-logos/</code> (3 stale logos) • <code>public/logo-*.OLD</code> (3 backups) • <code>src/index.css.OLD-THEME.bak</code> • <code>src/components/CountUp.tsx</code> + <code>MagneticButton.tsx</code> (byte-identical dupes of <code>custom/</code>) • <code>sections/_archived/</code> (dead section) • <code>attached_assets/</code> (orphaned screenshots; the <code>@assets</code> vite alias is intentionally kept for future Replit attachments).</div>
+<div class="note warnbox"><b>Kept on purpose:</b> <code>package-lock.json</code> (pins Vercel to npm) • <code>artifacts/</code> (separate playground) • Replit infra files • full 55-file ui set (tree-shaken, zero bundle cost). <b>Still unused — your call next:</b> StatsStrip, Portfolio section, BookingChoiceModal, dashboard stub.</div>
+
+<footer>Generated after final organizing pass. Typecheck + production build green. Commit: <code>docs: full repo guide + final cleanup</code>.</footer>
+</main>
+</body>
+</html>
